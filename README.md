@@ -1,2 +1,2 @@
 # Online Store
-3rd Project
+My Project
