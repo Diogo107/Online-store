@@ -1,0 +1,74 @@
+
+.App {
+  text-align: center;
+}
+
+.main__dashboard{
+  margin-left: 19%;
+  height: 100;
+  width: 81%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f3f5fa;
+
+}
+
+//form top section
+.new__icon{
+  margin-bottom: 15px 
+}
+
+.explan{
+  margin-bottom: 20px
+}
+
+.form__heading{
+  margin-bottom: 20px
+}
+
+.form__heading small {
+  padding-top: 200px
+}
+
+//dashboard 
+.form__dashboard {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: white;
+  padding: 20px 20px 20px 20px;
+  border-radius: 15px;
+}
+
+@media screen and (max-width: 640px) {
+  .main__dashboard{
+  margin-left: auto;
+  width: 100%;
+}
+  .form__dashboard {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+
+//custom scrollbar
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+//route
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+ 
+}
+
+::-webkit-scrollbar-thumb { 
+  background-image: linear-gradient(  #EC6EAD, #3494E6  ) ; 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+background: #EC6EAD
+}

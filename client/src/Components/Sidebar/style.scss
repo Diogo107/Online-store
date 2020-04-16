@@ -1,0 +1,117 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  
+  height: 100%;
+  position: fixed;
+  width: 39vh;
+  list-style: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+.link__item {
+text-decoration: none;
+color: #119fef
+}
+
+.button__test{
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #3494E6;
+    padding: 10px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+}
+
+.button__test:hover {
+  background: #EC6EAD;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.30);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.30);
+  transition: all 0.4s ease 0s;
+  }
+
+.sidebar__logo{
+margin-top: 20px;
+margin-left: 37px;
+margin-bottom: 90px;
+width: 220px;
+height: 45px
+}
+
+.signout__button :first-child{
+  margin: 10px 20px
+}
+
+.sidebar__item {
+  display: block;
+  float: left;
+  position: relative;
+  margin: 2px;
+  transition:.65s;
+  &.active {
+    background-color: #fff;
+    :only-child, :only-child:hover, &:focus {
+      opacity: 1;
+      color: #222;
+    }
+  }
+  :only-child {
+    position: relative;
+    display: block;
+    padding: 10px 20px;
+    color: #999;
+    opacity: .5;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: #EC6EAD;
+      opacity: 1;
+      border-left: 5px solid #3494E6;
+    }
+  }
+} 
+
+.user__dashboard{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-bottom: 3px solid #f3f5fa;
+  border-width: 100%;
+  width: 100%;
+  padding-bottom: 20px;
+
+}
+
+.admin__dashboard{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 640px) {
+  .sidebar{
+  display:none;
+}
+
+.sidebar__item{
+  width: 99vw;
+  height: 100vh;
+}
+}   

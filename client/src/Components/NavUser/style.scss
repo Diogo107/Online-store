@@ -1,0 +1,183 @@
+.nav__user{
+  padding-top: 21px;
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  background-image: linear-gradient(to right, #3494E6, #EC6EAD  ) 
+}
+
+//bluefluo: #11ccef
+//materialblue: #119fef
+//darkblue: #1172ef
+
+//blue: #3494E6
+//pink: #EC6EAD
+
+.mobile__menu__logo {
+  display: none;
+}
+
+.navuser__path{
+  color: white;
+  &:hover{
+    color: whitesmoke
+  }
+}
+
+.mobilename{
+color: white;
+&:hover{
+  color: whitesmoke
+}
+}
+.bm-burger-button{
+  display: none;
+}
+
+.small__profile__picture{
+  border-radius: 50%;
+}
+
+.burger__menu{
+  display: none;
+}
+
+.button__menu__test{
+  display: none
+}
+
+@media screen and (max-width: 640px) {
+  
+  .button__menu__test{
+    display: flex;
+    margin-top: 7%;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+    border-radius: 50px
+  }
+
+
+  .burger__menu{
+    display: flex;
+  }
+
+  .nav__user{
+    background-image: linear-gradient(to bottom right, #fff, #fff) !important;
+    
+    width: 105%
+  }
+
+
+
+
+  .mobile__menu__logo {
+    display: flex;
+    height: 40px;
+    width: 200px;
+    margin-left: 18%;
+    margin-top: 13%
+  }
+
+  .navuser__path {
+    display: none
+  }
+  
+  .mobilename {
+    display: none
+  }
+  
+  .mobileuser {
+    padding-top: 27px;
+    padding-right: 15px
+  }
+  
+  .nav__user{
+  margin-top: -21px;
+  margin-left: -20px; 
+  padding-right: 10px;
+  padding-bottom: 20px;
+}
+
+#page-wrap {
+  text-align: center;
+  
+  /* Prevent sidebar from showing a scrollbar on page */
+  overflow: auto;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+  /* Our sidebar item styling */
+  text-decoration: none;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+/* Change color on hover */
+.bm-item:hover {
+  color: white;
+}
+
+/* The rest copied directly from react-burger-menu docs */
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  display: block;
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  font-size: 1.15em;
+  
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+  }
+  
+  @media screen and (max-width: 370px) {
+    .mobile__menu__logo {
+      display: none
+    }
+  }
