@@ -3,52 +3,78 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true
-  },
-  picture: {
-    type: String,
-    default: 'https://source.unsplash.com/random/400x400/?face'
-  },
-  phoneNumber: {
-    type: Number,
-    trim: true
-  },
-  slot: {
-    type: String
-  },
-  passwordHash: {
-    type: String
-  },
-
-  buildingId: {
-    type: String
-  },
-
-  admin: Boolean,
-
-  stripeCustomerId: {
-    type: String
-  },
-  payment: Boolean,
-  createdAt: Date,
-  paymentMethods: Boolean,
-  blocked: Boolean
+	name: {
+		type: String,
+		trim: true,
+	},
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+		lowercase: true,
+		trim: true,
+	},
+	picture: {
+		type: String,
+		default:
+			'https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png',
+	},
+	phoneNumber: {
+		type: Number,
+		trim: true,
+	},
+	passwordHash: {
+		type: String,
+	},
+	admin: {
+		type: Boolean,
+		default: false,
+	},
+	NIF: {
+		type: Number,
+		trim: true,
+	},
+	Council: {
+		type: String,
+		trim: true,
+	},
+	Parish: {
+		type: String,
+		trim: true,
+	},
+	Address: {
+		type: String,
+		trim: true,
+	},
+	BuildingNumber: {
+		type: String,
+		trim: true,
+	},
+	Floor: {
+		type: String,
+		trim: true,
+	},
+	DoorNumber: {
+		type: String,
+		trim: true,
+	},
+	ZipCode: {
+		type: String,
+		trim: true,
+	},
+	cart: [
+		{
+			_id: String,
+			name: String,
+			quantity: {
+				type: Number,
+				default: 1,
+			},
+			price: Number,
+			image: String,
+		},
+	],
+	createdAt: Date,
 });
 
 module.exports = mongoose.model('User', schema);
-
-// Sugested Array of buildings
-/* 
-Appartments:{
-  type: Array,
-  required: true
-}
- */

@@ -1,0 +1,45 @@
+.At {
+	padding-top: 150px;
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+	img {
+		width: 50px;
+	}
+	section {
+		display: flex;
+		justify-content: space-between;
+		width: 80vw;
+		margin: auto;
+		.texto {
+			width: 50%;
+			flex-direction: column;
+			border-right: 3px solid grey;
+			padding: auto 6em;
+			div {
+				display: flex;
+				flex-direction: row;
+				width: 80%;
+				margin: 1em 3em auto auto;
+				justify-content: space-between;
+				align-items: center;
+			}
+		}
+		.contacto {
+			padding: 1em 2em;
+			width: 50%;
+			flex-direction: column;
+			h3 {
+				margin-bottom: 1em;
+			}
+			form > .form-group {
+				flex-direction: column;
+				width: 100%;
+			}
+		}
+	}
+	.maps {
+		margin-top: 2em;
+	}
+}

@@ -1,135 +1,458 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Input } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import './style.scss';
-import { preventContextMenu } from '@fullcalendar/core';
+import { preventContextMenu, preventDefault } from '@fullcalendar/core';
+import { Link } from 'react-router-dom';
 import { updateProfile } from './../../Services/otherServices';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Total from './../../Components/Total';
+//Import Images
+import cartImage from './../../asset/images/headerCart.png';
+import Edit from './../../asset/images/editar.png';
+//Products Forms
+import Cheese from './../../Components/Forms/Queijo';
+import CreateProduct from './../../Components/Forms/CreateProduct';
 
 export default class index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false,
-      edit: true,
-      name: '',
-      email: '',
-      phoneNumber: '',
-      user: null
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.updateProfile = this.updateProfile.bind(this);
-    this.edit = this.edit.bind(this);
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			categoryForm: '',
+			edit: false,
+			admin: '',
+			id: '',
+			name: '',
+			email: '',
+			phoneNumber: '',
+			NIF: '',
+			Council: '',
+			Parish: '',
+			Address: '',
+			BuildingNumber: '',
+			Floor: '',
+			DoorNumber: '',
+			ZipCode: '',
+			cart: [],
+			total: 0,
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.edit = this.edit.bind(this);
+		this.update = this.update.bind(this);
+		this.productType = this.productType.bind(this);
+		this.changeRole = this.changeRole.bind(this);
+	}
 
-  componentDidMount() {
-    this.setState({
-      name: this.props.user.name,
-      email: this.props.user.email,
-      phoneNumber: this.props.user.phoneNumber,
-      user: this.props.user,
-      loaded: true
-    });
-  }
+	componentDidMount() {
+		console.log('Profile component did mount', this.props);
+		if (this.props.user) {
+			let cart = this.props.cart;
+			let {
+				name,
+				email,
+				admin,
+				phoneNumber,
+				NIF,
+				Council,
+				Parish,
+				Address,
+				BuildingNumber,
+				Floor,
+				DoorNumber,
+				ZipCode,
+			} = this.props.user;
 
-  edit() {
-    this.setState({
-      edit: !this.state.edit
-    });
-  }
+			this.setState({
+				id: this.props.user._id,
+				name,
+				email,
+				admin,
+				phoneNumber,
+				NIF,
+				Council,
+				Parish,
+				Address,
+				BuildingNumber,
+				Floor,
+				DoorNumber,
+				ZipCode,
+				cart,
+			});
+			let total = 0;
+			for (let i of cart) {
+				total += i.price * i.quantity;
+			}
+			this.setState({
+				total: total,
+			});
+		}
+	}
 
-  handleInputChange(event) {
-    const value = event.target.value;
-    const inputName = event.target.name;
-    console.log(value);
-    this.setState({
-      [inputName]: value
-    });
-  }
+	handleInputChange(event) {
+		const value = event.target.value;
+		const inputName = event.target.name;
+		console.log(value);
+		this.setState({
+			[inputName]: value,
+		});
+	}
 
-  updateProfile(event) {
-    event.preventDefault();
-    const id = this.state.user._id;
-    const { name, email, phoneNumber } = this.state;
-    updateProfile({ name, email, phoneNumber, id });
-    window.location.reload();
-  }
+	edit() {
+		this.setState({
+			edit: !this.state.edit,
+		});
+	}
 
-  render() {
-    return (
-      <div className="profile__div">
-        {this.state.loaded && this.state.edit && (
-          <div>
-            <img className="profile__picture" src={this.state.user.picture} alt="profile picture" />
-            <div className="profile__details">
-            <h5>Name</h5>
-            <p>{this.state.name}</p>
-            <h5>Email</h5>
-            <p>{this.state.email}</p>
-            <h5>Phone Number</h5>
-            <p>{this.state.phoneNumber}</p>
-            </div>
-            <div><Button onClick={this.edit} className="button__test">Edit Profile</Button></div>
-            <div><Button href="/first-payment" className="button__test">Payment</Button></div>
-          </div>
-        )}
-        {(this.state.loaded && !this.state.edit && (
-          <Form onSubmit={this.updateProfile}>
-            <Form.Group>
-              <img
-                className="profile__picture"
-                src={this.state.user.picture}
-                alt="profile picture"
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <TextField
-                className="textfield"
-                id="outlined-basic" label="Name" variant="outlined"
-                type="text"
-                name="name"
-                value={this.state.name}
-                placeholder="Enter name"
-                onChange={this.handleInputChange}
-              />
-              <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-             
-              <TextField
-                className="textfield"
-                id="outlined-basic" label="Email" variant="outlined"
-                type="email"
-                placeholder="Enter email"
-                required
-                value={this.state.email}
-                name="email"
-                onChange={this.handleInputChange}
-              />
-              <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              
-              <TextField
-                className="textfield"
-                id="outlined-basic" label="Phone Number" variant="outlined"
-                type="text"
-                name="phoneNumber"
-                value={this.state.phoneNumber}
-                placeholder="Enter phone number"
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">+351</InputAdornment>,
-                }}
-                onChange={this.handleInputChange}
-              />
-              <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-            <Button className="button__test" type="submit">Update</Button>
-          </Form>
-        )) ||
-          ''}
-        
-      </div>
-    );
-  }
+	async update(event) {
+		event.preventDefault();
+		let {
+			id,
+			name,
+			email,
+			admin,
+			phoneNumber,
+			NIF,
+			Council,
+			Parish,
+			Address,
+			BuildingNumber,
+			Floor,
+			DoorNumber,
+			ZipCode,
+		} = this.state;
+		try {
+			await updateProfile({
+				id,
+				name,
+				email,
+				admin,
+				phoneNumber,
+				NIF,
+				Council,
+				Parish,
+				Address,
+				BuildingNumber,
+				Floor,
+				DoorNumber,
+				ZipCode,
+			});
+			this.setState({
+				id,
+				name,
+				email,
+				admin,
+				phoneNumber,
+				NIF,
+				Council,
+				Parish,
+				Address,
+				BuildingNumber,
+				Floor,
+				DoorNumber,
+				ZipCode,
+				edit: false,
+			});
+
+			this.props.history.push('/profile');
+		} catch (error) {
+			console.log(error);
+		}
+		this.props.updateUserInformation(this.state);
+	}
+
+	productType(event) {
+		event.preventDefault();
+		var productType = document.getElementById('productType').value;
+		this.setState({
+			categoryForm: productType,
+		});
+	}
+
+	async changeRole() {
+		let admin = !this.state.admin;
+		console.log('this is the role', this.state.admin);
+		await this.setState({ admin });
+		let {
+			id,
+			name,
+			email,
+			phoneNumber,
+			NIF,
+			Council,
+			Parish,
+			Address,
+			BuildingNumber,
+			Floor,
+			DoorNumber,
+			ZipCode,
+		} = this.state;
+		await updateProfile({
+			id,
+			name,
+			email,
+			admin,
+			phoneNumber,
+			NIF,
+			Council,
+			Parish,
+			Address,
+			BuildingNumber,
+			Floor,
+			DoorNumber,
+			ZipCode,
+		});
+		this.props.updateUserInformation(this.state);
+		this.props.history.push('/');
+	}
+
+	render() {
+		return (
+			<div className="profile__overall">
+				<div className="profile__details">
+					<div>
+						<h3>O meu perfil</h3>
+						<button onClick={this.edit}>
+							<img src={Edit} alt="edit" />
+						</button>
+
+						<Button onClick={this.changeRole}>Mudar Papel</Button>
+					</div>
+					<Form onSubmit={this.update}>
+						<div>
+							<p>
+								<strong>Name</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.name}
+									onChange={this.handleInputChange}
+									name="name"
+								/>
+							)) ||
+								this.state.name}
+						</div>
+						<div>
+							<p>
+								<strong>Email</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.email}
+									onChange={this.handleInputChange}
+									name="email"
+								/>
+							)) ||
+								this.state.email}
+						</div>
+						<div>
+							<p>
+								<strong>Telefone</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.phoneNumber}
+									onChange={this.handleInputChange}
+									name="phoneNumber"
+								/>
+							)) ||
+								this.state.phoneNumber}
+						</div>
+						<div>
+							<p>
+								<strong>Morada</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.Address}
+									onChange={this.handleInputChange}
+									name="Address"
+								/>
+							)) ||
+								this.state.Address}
+						</div>
+						<div>
+							<p>
+								<strong>NIF</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.NIF}
+									onChange={this.handleInputChange}
+									name="NIF"
+								/>
+							)) ||
+								this.state.NIF}
+						</div>
+						<div>
+							<p>
+								<strong>Nº Prédio</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.BuildingNumber}
+									onChange={this.handleInputChange}
+									name="BuildingNumber"
+								/>
+							)) ||
+								this.state.BuildingNumber}
+						</div>
+						<div>
+							<p>
+								<strong>Piso</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.Floor}
+									onChange={this.handleInputChange}
+									name="Floor"
+								/>
+							)) ||
+								this.state.Floor}
+						</div>
+						<div>
+							<p>
+								<strong>Porta</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.DoorNumber}
+									onChange={this.handleInputChange}
+									name="DoorNumber"
+								/>
+							)) ||
+								this.state.DoorNumber}
+						</div>
+						<div>
+							<p>
+								<strong>Freguesia</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.Parish}
+									onChange={this.handleInputChange}
+									name="Parish"
+								/>
+							)) ||
+								this.state.Parish}
+						</div>
+						<div>
+							<p>
+								<strong>Concelho</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.Council}
+									onChange={this.handleInputChange}
+									name="Council"
+								/>
+							)) ||
+								this.state.Council}
+						</div>
+						<div>
+							<p>
+								<strong>Código Postal</strong>
+							</p>
+							{(this.state.edit && (
+								<Input
+									value={this.state.ZipCode}
+									onChange={this.handleInputChange}
+									name="ZipCode"
+								/>
+							)) ||
+								this.state.ZipCode}
+						</div>
+						{this.state.edit && <Button type="submit">Atualizar</Button>}
+					</Form>
+				</div>
+				{!this.state.admin && (
+					<div className="profile__cart">
+						<h3>O meu carrinho:</h3>
+						<Container>
+							<Row className="Cart__Header">
+								<Col>
+									<h5>
+										<strong> Nome</strong>
+									</h5>
+								</Col>
+								<Col>
+									<h5>
+										<strong> Quantidade</strong>{' '}
+									</h5>
+								</Col>
+								<Col>
+									<h5>
+										<strong> Preço/Unid</strong>
+									</h5>
+								</Col>
+								<Col>
+									<h5>
+										<strong> Total</strong>
+									</h5>
+								</Col>
+							</Row>
+							{this.state.cart &&
+								this.state.cart.map((single) => (
+									<Row className="Cart__List">
+										<Col>
+											<h5>{single.name} </h5>
+										</Col>
+										<Col>
+											<h5>{single.quantity} </h5>
+										</Col>
+										<Col>
+											<h5>{single.price} €</h5>
+										</Col>
+										<Col>
+											<h5>{single.price * single.quantity} €</h5>
+										</Col>
+									</Row>
+								))}
+						</Container>
+						{this.state.total !== 0 && (
+							<div className="Total__Checkout">
+								<h3>
+									Total do
+									<br />
+									carrinho:
+								</h3>
+								<h5>{this.state.total} €</h5>
+								<Link to="/carrinho">
+									<Button>
+										<h6>Finalizar compra</h6>
+										<img src={cartImage} alt="botão de compra" />
+									</Button>
+								</Link>
+							</div>
+						)}
+					</div>
+				)}
+				{this.state.admin && (
+					<div className="profile__cart">
+						<>
+							<h3>Criar novo artigo:</h3>
+							<CreateProduct />
+						</>
+					</div>
+				)}
+			</div>
+		);
+	}
+}
+{
+	/*
+	 <Form>
+	<Input
+		type="select"
+		name="selectMulti"
+		id="productType"
+		onChange={this.productType}
+	>
+		<option>Escolher um...</option>
+		<option value="Queijo">Queijo</option>
+		<option value="Vinho">Vinho</option>
+		<option value="Enchidos">Enchidos</option>
+		<option value="Bolos">Bolos</option>
+	</Input>
+</Form> 
+*/
 }

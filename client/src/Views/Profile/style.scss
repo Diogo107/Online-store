@@ -1,11 +1,72 @@
-.profile__picture{
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  margin-top: 40px;
-  margin-bottom: 40px
-}
-
-.profile__div{
-  background-color: inherit;
+.profile__overall {
+	padding-top: 150px;
+	width: 80vw;
+	display: flex;
+	margin: 0 auto;
+	min-height: 90vh;
+	.profile__details {
+		width: 50%;
+		border-right: solid grey 1px;
+		img {
+			width: 1.5em;
+		}
+		button {
+			margin-top: 0em;
+			margin-bottom: 1em;
+		}
+		div {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: auto 1em;
+			input {
+				width: 80%;
+			}
+		}
+	}
+	.profile__cart {
+		width: 50%;
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+		.col {
+			width: 150px;
+		}
+		.container {
+			padding: 0;
+		}
+		.Cart__Header {
+			margin-bottom: 1em;
+		}
+		.Cart__List {
+			border-bottom: solid grey 0.5px;
+		}
+		.Cart__List:last-child {
+			border-bottom: solid black 1px;
+		}
+		button {
+			width: 200px;
+			height: 50px;
+			display: flex;
+		}
+		img {
+			width: auto;
+			height: 30px;
+			margin-right: 0;
+			margin-left: auto;
+		}
+		.Total__Checkout {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin: 2em auto;
+		}
+		a:hover {
+			text-decoration: none;
+			color: inherit;
+		}
+		h6 {
+			height: 100%;
+			margin: auto 4px;
+		}
+	}
 }

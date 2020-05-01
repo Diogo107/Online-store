@@ -1,0 +1,30 @@
+.FAQ {
+	padding-top: 7em;
+	height: 90vh;
+	h1 {
+		margin-bottom: 2em;
+	}
+	.clicker {
+		width: 80vw;
+		text-align: left;
+		margin: auto;
+		outline: none;
+		cursor: pointer;
+		color: #e1c16a;
+		margin-bottom: 1em;
+	}
+
+	.hiddendiv {
+		display: none;
+		width: 80vw;
+		margin: auto;
+		text-align: left;
+		padding-left: 2em;
+		color: #8f8c85;
+		margin-bottom: 2em;
+	}
+
+	.clicker:focus + .hiddendiv {
+		display: block;
+	}
+}
