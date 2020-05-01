@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style.scss';
+import PaymentMethod from './../PaymentMethodCreate';
+import PaymentMethodList from './../PaymentMethodList';
+import { create as createPurchase } from './../../Services/purchase';
 //importar imagens
 import cart from './../../asset/images/headerCart.png';
-
-import { Elements } from '@stripe/react-stripe-js';
+//Stripe
+import Stripe from './../Stripe/index.jsx';
 import { loadStripe } from '@stripe/stripe-js';
-const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
+import {
+	CardElement,
+	Elements,
+	ElementsConsumer,
+} from '@stripe/react-stripe-js';
+import { create as paymentMethodCreate } from './../../Services/payment-method';
+const STRIPE_PUBLIC_KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+//Fim do Stripe
 
 class index extends Component {
 	constructor(props) {
@@ -34,14 +44,13 @@ class index extends Component {
 	}
 
 	async handlePurchase() {
-		/* let StripeHandler = StripeCheckout.configure({
-			key: process.env.REACT_APP_STRIPE_PUBLIC_KEY,
-			locale: 'pt',
-			token: function (token) {
-				console.log('this is the token', token);
-			},
-		});
-		console.log('hello from here', process.env.REACT_APP_STRIPE_PUBLIC_KEY); */
+		const ids = this.state.cart.map((product) => product._id);
+		const cart = this.state.cart;
+		try {
+			await createPurchase({ ids, cart });
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	render() {
@@ -71,7 +80,8 @@ class index extends Component {
 								<h3>{product.quantity * product.price} €</h3>
 							</div>
 						))}
-						<Elements stripe={stripePromise}>hello</Elements>
+						<PaymentMethod />
+						<PaymentMethodList />
 						<div className="Checkout__Total">
 							<div>This will be the stripe</div>
 							<button

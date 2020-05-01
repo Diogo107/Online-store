@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 
 import './App.scss';
 import NavBar from './Components/NavBar';

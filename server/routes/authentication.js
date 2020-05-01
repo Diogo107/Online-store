@@ -22,6 +22,7 @@ router.post('/sign-up', async (req, res, next) => {
 			phoneNumber,
 			passwordHash: hash,
 			admin,
+			stripeCustomerId: customer.id,
 			createdAt,
 		});
 		req.session.user = user._id;
