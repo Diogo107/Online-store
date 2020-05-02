@@ -1,5 +1,41 @@
 .checkout {
 	padding-top: 150px;
+	tr {
+		td > div {
+			display: flex;
+			justify-content: space-evenly;
+		}
+		button {
+			background: transparent;
+			border: none !important;
+			img {
+				width: 15px;
+			}
+		}
+	}
+	th > img {
+		width: 50px;
+		border-radius: 50px;
+	}
+	> div {
+		display: flex;
+		justify-content: space-evenly;
+		margin: auto;
+	}
+	.Checkout__Left {
+		width: 40%;
+	}
+	.Checkout__Right {
+		form {
+			background-color: white;
+			border-radius: 15px;
+		}
+		padding: 10px;
+		width: 420px;
+		background-color: gold;
+		border-radius: 15px;
+		height: fit-content;
+	}
 	.Checkout__emptycart {
 		display: flex;
 		flex-direction: column;
@@ -37,12 +73,11 @@
 }
 
 .Single__Product__Checkout {
-	width: 50vw;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1em;
-	height: 130px;
+	height: 110px;
 	//background-color: grey;
 	border: solid grey 0.5px;
 	border-radius: 15px;
@@ -83,14 +118,10 @@
 }
 
 .Checkout__Total {
-	width: 50vw;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1em;
-	margin: auto;
-	background-color: gold;
-	border-radius: 15px;
 	color: white;
 }
 

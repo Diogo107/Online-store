@@ -82,7 +82,7 @@ class index extends Component {
 							</div>
 							<div>
 								<h5>Preço</h5>
-								<p>{this.state.product.Price} €</p>
+								<p>{this.state.product.Price / 100} €</p>
 							</div>
 							<div className="Div__Buy__Quantity">
 								<ButtonToggle color="warning" onClick={this.buttonBuy}>

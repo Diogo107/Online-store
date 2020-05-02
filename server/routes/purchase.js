@@ -21,15 +21,20 @@ router.get('/list', async (req, res, next) => {
 });
 
 router.post('/create', async (req, res, next) => {
-	const { products: productIds } = req.body;
+	const { products: productIds, cart: cart } = req.body;
 	console.log('this is the ids im getting', productIds);
+	console.log('this is the ids im getting', cart);
 	try {
 		const products = await Product.find({ _id: productIds });
-		console.log('inside server', products);
-		const amount = products.reduce(
-			(total, product) => total + product.Price,
+		console.log('inside server before the reduce', products);
+		let amount = 0;
+		for (let i of cart) {
+			amount += i.price * i.quantity;
+		}
+		/* const amount = products.reduce(
+			(total, product) => total + product.Price * product.quantity,
 			0
-		);
+		); */
 		console.log('inside server', amount);
 		const currency = 'EUR';
 

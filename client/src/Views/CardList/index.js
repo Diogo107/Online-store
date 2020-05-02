@@ -61,7 +61,7 @@ class index extends Component {
 										className="image"
 									/>
 									<div class="middle">
-										<div class="text">{single.Price} €</div>
+										<div class="text">{single.Price / 100} €</div>
 									</div>
 								</Link>
 							</Col>

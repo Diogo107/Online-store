@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Table } from 'reactstrap';
 import './style.scss';
 import PaymentMethod from './../PaymentMethodCreate';
 import PaymentMethodList from './../PaymentMethodList';
 import { create as createPurchase } from './../../Services/purchase';
 //importar imagens
 import cart from './../../asset/images/headerCart.png';
+import remove from './../../asset/images/remove.png';
+import plus from './../../asset/images/plus.png';
+import minus from './../../asset/images/minus.png';
 //Stripe
 import Stripe from './../Stripe/index.jsx';
 import { loadStripe } from '@stripe/stripe-js';
@@ -25,8 +29,12 @@ class index extends Component {
 			empty: false,
 			cart: [],
 			total: 0,
+			paymentMethod: false,
 		};
 		this.handlePurchase = this.handlePurchase.bind(this);
+		this.addPayment = this.addPayment.bind(this);
+		this.removeFromCart = this.removeFromCart.bind(this);
+		this.updateSingleQuantity = this.updateSingleQuantity.bind(this);
 	}
 
 	async componentDidMount() {
@@ -43,6 +51,20 @@ class index extends Component {
 		});
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log('ptpoptotpo', nextProps.cart);
+		let empty = nextProps.cart.length == 0 ? true : false;
+		let total = 0;
+		for (let i of nextProps.cart) {
+			total += i.price * i.quantity;
+		}
+		this.setState({
+			cart: nextProps.cart,
+			total,
+			empty,
+		});
+	}
+
 	async handlePurchase() {
 		const ids = this.state.cart.map((product) => product._id);
 		const cart = this.state.cart;
@@ -51,6 +73,43 @@ class index extends Component {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	addPayment() {
+		this.setState({
+			paymentMethod: !this.state.paymentMethod,
+		});
+	}
+
+	removeFromCart(event) {
+		event.preventDefault();
+		let removeId = event.target[0].name;
+		let cart = this.state.cart.filter((single) => single._id !== removeId);
+		this.setState({
+			cart: cart,
+		});
+		this.props.removeFromCart(cart);
+	}
+
+	updateSingleQuantity(event) {
+		event.preventDefault();
+		let operation = event.target[0].name;
+		let id = event.target[0].value;
+		console.log('this happened', event.target[0].value);
+		let cart = this.state.cart;
+		for (let i of cart) {
+			if (i._id == id && operation == 'plus') {
+				i.quantity++;
+			} else if (i._id == id && operation == 'minus') {
+				i.quantity == 1
+					? this.props.removeFromCart(
+							this.state.cart.filter((single) => single._id !== id)
+					  )
+					: i.quantity--;
+			}
+		}
+		console.log('this is the cart before', cart);
+		this.props.updateCartQuantity(cart);
 	}
 
 	render() {
@@ -67,31 +126,65 @@ class index extends Component {
 					</div>
 				)) || (
 					<div>
-						{this.state.cart.map((product) => (
-							<div className="Single__Product__Checkout">
-								<img src={product.image} alt={product.name} />
-								<div>
-									<h4>{product.name}</h4>
-									<div>
-										<p>{product.quantity} X</p>
-										<p>{product.price} €</p>
-									</div>
-								</div>
-								<h3>{product.quantity * product.price} €</h3>
+						<div className="Checkout__Left">
+							<Table hover>
+								<thead>
+									<tr>
+										<th>Producto</th>
+										<th>Quantidade</th>
+										<th>Preço</th>
+										<th>Sub-total</th>
+										<th>Remover</th>
+									</tr>
+								</thead>
+								<tbody>
+									{this.state.cart.map((product) => (
+										<tr key={product._id}>
+											<th scope="row">{product.name}</th>
+											<td>
+												<div>
+													<form onSubmit={this.updateSingleQuantity}>
+														<button name="minus" value={product._id}>
+															<img src={minus} alt="minus" />{' '}
+														</button>
+													</form>
+													{product.quantity}
+													<form onSubmit={this.updateSingleQuantity}>
+														<button name="plus" value={product._id}>
+															<img src={plus} alt="plus" />{' '}
+														</button>
+													</form>
+												</div>
+											</td>
+											<td>€{product.price / 100}</td>
+											<td>€{(product.quantity * product.price) / 100}</td>
+											<td>
+												<form onSubmit={this.removeFromCart}>
+													<button name={product._id}>
+														<img src={remove} alt="" />
+													</button>
+												</form>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</Table>
+						</div>
+						<div className="Checkout__Right">
+							<button onClick={this.addPayment}>Adicionar Cartão</button>
+							{(this.state.paymentMethod && <PaymentMethod />) || (
+								<PaymentMethodList />
+							)}
+							<div className="Checkout__Total">
+								<button
+									className="Checkout__button"
+									onClick={this.handlePurchase}
+								>
+									Comprar
+								</button>
+								<h2>Total</h2>
+								<h2>{this.state.total / 100} €</h2>
 							</div>
-						))}
-						<PaymentMethod />
-						<PaymentMethodList />
-						<div className="Checkout__Total">
-							<div>This will be the stripe</div>
-							<button
-								className="Checkout__button"
-								onClick={this.handlePurchase}
-							>
-								Comprar
-							</button>
-							<h2>Total</h2>
-							<h2>{this.state.total} €</h2>
 						</div>
 					</div>
 				)}

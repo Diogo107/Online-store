@@ -12,6 +12,16 @@
 	bottom: 0;
 	a {
 		color: inherit;
+		height: 24px;
+		.navbar-nav {
+			height: inherit;
+			img {
+				height: inherit;
+				width: auto;
+				margin-right: 0.5em;
+				filter: invert(100%);
+			}
+		}
 	}
 }
 

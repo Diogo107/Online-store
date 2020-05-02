@@ -11,7 +11,12 @@ const list = async () => {
 };
 
 const create = async (id) => {
-	await instance.post('/create', { products: id.ids, cart: id.cart });
+	const result = await instance.post('/create', {
+		products: id.ids,
+		cart: id.cart,
+	});
+	console.log('getting back', result);
+	return result;
 };
 
 const addToCart = async (id) => {

@@ -34,6 +34,8 @@ class App extends Component {
 		this.updateUserInformation = this.updateUserInformation.bind(this);
 		this.addToCart = this.addToCart.bind(this);
 		this.updateRole = this.updateRole.bind(this);
+		this.removeFromCart = this.removeFromCart.bind(this);
+		this.updateCartQuantity = this.updateCartQuantity.bind(this);
 	}
 
 	async componentDidMount() {
@@ -49,8 +51,6 @@ class App extends Component {
 	updateRole() {
 		console.log('update role');
 	}
-
-	componentDidUpdate() {}
 
 	updateUserInformation(user) {
 		this.setState({
@@ -86,6 +86,20 @@ class App extends Component {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	async removeFromCart(newCart) {
+		let id = this.state.user._id;
+		let cart = newCart;
+		await updateCart({ id, cart });
+		this.setState({
+			cart: newCart,
+		});
+	}
+	updateCartQuantity(cart) {
+		this.setState({
+			cart,
+		});
 	}
 
 	render() {
@@ -148,6 +162,8 @@ class App extends Component {
 							<Checkout
 								cart={this.state.cart}
 								user={this.state.user}
+								removeFromCart={this.removeFromCart}
+								updateCartQuantity={this.updateCartQuantity}
 								{...props}
 							/>
 						)}
