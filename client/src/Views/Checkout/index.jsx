@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import './style.scss';
 import PaymentMethod from './../PaymentMethodCreate';
 import PaymentMethodList from './../PaymentMethodList';
+import Address from './../../Components/Address';
 import { create as createPurchase } from './../../Services/purchase';
 //importar imagens
 import cart from './../../asset/images/headerCart.png';
@@ -52,7 +54,6 @@ class index extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('ptpoptotpo', nextProps.cart);
 		let empty = nextProps.cart.length == 0 ? true : false;
 		let total = 0;
 		for (let i of nextProps.cart) {
@@ -95,7 +96,6 @@ class index extends Component {
 		event.preventDefault();
 		let operation = event.target[0].name;
 		let id = event.target[0].value;
-		console.log('this happened', event.target[0].value);
 		let cart = this.state.cart;
 		for (let i of cart) {
 			if (i._id == id && operation == 'plus') {
@@ -108,7 +108,6 @@ class index extends Component {
 					: i.quantity--;
 			}
 		}
-		console.log('this is the cart before', cart);
 		this.props.updateCartQuantity(cart);
 	}
 
@@ -171,17 +170,24 @@ class index extends Component {
 							</Table>
 						</div>
 						<div className="Checkout__Right">
-							<button onClick={this.addPayment}>Adicionar Cartão</button>
-							{(this.state.paymentMethod && <PaymentMethod />) || (
-								<PaymentMethodList />
+							{(this.state.paymentMethod && (
+								<PaymentMethod addPayment={this.addPayment} {...this.props} />
+							)) || (
+								<PaymentMethodList
+									addPayment={this.addPayment}
+									{...this.props}
+								/>
 							)}
+							<Address {...this.props} />
 							<div className="Checkout__Total">
-								<button
-									className="Checkout__button"
+								<Button
+									variant="contained"
+									color="primary"
+									component="span"
 									onClick={this.handlePurchase}
 								>
 									Comprar
-								</button>
+								</Button>
 								<h2>Total</h2>
 								<h2>{this.state.total / 100} €</h2>
 							</div>

@@ -62,7 +62,7 @@ export default class index extends Component {
 						<button class="dropbtn">
 							{!this.props.user && (
 								<Link to="/login">
-									<img src={UserInactive} alt="" />
+									<img className="invert" src={UserInactive} alt="" />
 								</Link>
 							)}
 							{this.props.user && (
@@ -72,7 +72,7 @@ export default class index extends Component {
 							)}
 						</button>
 						<div class="dropdown-content">
-							<a href="#">Meu Perfil</a>
+							<Link to="/profile">Meu Perfil</Link>
 							<a>
 								<button onClick={this.hadleSignout}>Logout</button>
 							</a>
@@ -80,14 +80,20 @@ export default class index extends Component {
 					</div>
 
 					<div class="dropdown">
-						<button class="dropbtn">
-							{this.state.emptyFull && (
-								<img src={EmptyCart} alt="Carrinho Vazio" />
-							)}
-							{!this.state.emptyFull && (
-								<img src={FullCart} alt="Carrinho Cheio" />
-							)}
-						</button>
+						<Link to="/carrinho">
+							<button class="dropbtn ">
+								{this.state.emptyFull && (
+									<img
+										className="invert"
+										src={EmptyCart}
+										alt="Carrinho Vazio"
+									/>
+								)}
+								{!this.state.emptyFull && (
+									<img src={FullCart} alt="Carrinho Cheio" />
+								)}
+							</button>
+						</Link>
 						<div class="dropdown-content">
 							<Link to="/carrinho">Meu Carrinho</Link>
 							<Link to="/encomendas">Encomendas</Link>

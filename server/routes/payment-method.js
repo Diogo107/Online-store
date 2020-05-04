@@ -43,4 +43,15 @@ router.post('/create', async (req, res, next) => {
 	}
 });
 
+router.post('/erase', async (req, res, next) => {
+	try {
+		const id = req.body.token;
+		console.log('this is the id', id);
+		const result = await PaymentMethod.deleteOne({ _id: id });
+		res.json(result);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 module.exports = router;

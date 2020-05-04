@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { Input } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
+import { Input, Table, Container, Row, Col } from 'reactstrap';
 import './style.scss';
 import { preventContextMenu, preventDefault } from '@fullcalendar/core';
 import { Link } from 'react-router-dom';
@@ -367,47 +366,30 @@ export default class index extends Component {
 				{!this.state.admin && (
 					<div className="profile__cart">
 						<h3>O meu carrinho:</h3>
-						<Container>
-							<Row className="Cart__Header">
-								<Col>
-									<h5>
-										<strong> Nome</strong>
-									</h5>
-								</Col>
-								<Col>
-									<h5>
-										<strong> Quantidade</strong>{' '}
-									</h5>
-								</Col>
-								<Col>
-									<h5>
-										<strong> Preço/Unid</strong>
-									</h5>
-								</Col>
-								<Col>
-									<h5>
-										<strong> Total</strong>
-									</h5>
-								</Col>
-							</Row>
-							{this.state.cart &&
-								this.state.cart.map((single) => (
-									<Row className="Cart__List">
-										<Col>
-											<h5>{single.name} </h5>
-										</Col>
-										<Col>
-											<h5>{single.quantity} </h5>
-										</Col>
-										<Col>
-											<h5>{single.price} €</h5>
-										</Col>
-										<Col>
-											<h5>{single.price * single.quantity} €</h5>
-										</Col>
-									</Row>
-								))}
-						</Container>
+						<Table hover>
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Quantidade</th>
+									<th>Preço/Unid</th>
+									<th>Sub-total</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{this.state.cart &&
+									this.state.cart.map((single) => (
+										<tr key={single._id}>
+											<th scope="row">{single.name}</th>
+
+											<td>{single.name}</td>
+											<td>{single.quantity}</td>
+											<td>{single.price / 100} €</td>
+											<td>{(single.price * single.quantity) / 100} €</td>
+										</tr>
+									))}
+							</tbody>
+						</Table>
 						{this.state.total !== 0 && (
 							<div className="Total__Checkout">
 								<h3>
@@ -415,7 +397,7 @@ export default class index extends Component {
 									<br />
 									carrinho:
 								</h3>
-								<h5>{this.state.total} €</h5>
+								<h5>{this.state.total / 100} €</h5>
 								<Link to="/carrinho">
 									<Button>
 										<h6>Finalizar compra</h6>

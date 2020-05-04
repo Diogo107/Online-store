@@ -1,0 +1,38 @@
+.Address {
+	margin: 1em auto;
+	background-color: white;
+	min-height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 0.5px solid grey;
+	border-bottom: 0.5px solid grey;
+	h3 {
+		margin-bottom: auto;
+	}
+	.No__Address {
+		width: 100%;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		padding: 1em;
+		margin: auto;
+		background-color: grey;
+		border-radius: 50px;
+		p {
+			margin: auto;
+			font-size: 1.3em;
+			height: 100%;
+		}
+		img {
+			width: 35px;
+		}
+	}
+	a {
+		color: inherit;
+	}
+	a:hover {
+		text-decoration: none;
+		color: inherit;
+	}
+}

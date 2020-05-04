@@ -1,5 +1,6 @@
 .checkout {
 	padding-top: 150px;
+
 	tr {
 		td > div {
 			display: flex;
@@ -26,15 +27,18 @@
 		width: 40%;
 	}
 	.Checkout__Right {
+		h3 {
+			padding: 1em;
+		}
 		form {
 			background-color: white;
 			border-radius: 15px;
 		}
 		padding: 10px;
 		width: 420px;
-		background-color: gold;
 		border-radius: 15px;
 		height: fit-content;
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	}
 	.Checkout__emptycart {
 		display: flex;
@@ -122,16 +126,7 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 1em;
-	color: white;
-}
-
-.Checkout__Total :hover {
-	color: white !important;
-	font-weight: 700 !important;
-	letter-spacing: 3px;
-	background: none;
-	background-color: darkred;
-	-webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-	-moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-	transition: all 0.3s ease 0s;
+	.MuiButtonBase-root {
+		padding: 1em 1.5em;
+	}
 }
