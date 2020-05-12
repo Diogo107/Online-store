@@ -3,7 +3,6 @@ import { signUp } from './../../../Services/authentication';
 import { signIn } from './../../../Services/authentication';
 import { Form, Button } from 'react-bootstrap';
 import './style.scss';
-import Apartment from '../../../asset/images/apartment.png';
 import { Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 

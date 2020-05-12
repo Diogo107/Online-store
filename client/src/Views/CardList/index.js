@@ -4,19 +4,6 @@ import './style.scss';
 import { getProducts } from './../../Services/food';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-const temp = [
-	{
-		price: 12,
-		picture:
-			'https://www.thespruceeats.com/thmb/nbxJh7tw20GuoJ8gqsitBQFFHR4=/3966x2231/smart/filters:no_upscale()/Spanish-chorizo-GettyImages-86160743-5930e0463df78c08ab574d7e.jpg',
-	},
-	{
-		price: 4,
-		picture:
-			'https://upload.wikimedia.org/wikipedia/commons/6/61/Trappista_cheese_original.jpg',
-	},
-];
-
 class index extends Component {
 	constructor(props) {
 		super(props);

@@ -117,6 +117,7 @@ class App extends Component {
 							<CategoriesBar user={this.state.user} {...props} />
 						)}
 					/>
+
 					<Route
 						path="/contactos"
 						exact
@@ -147,6 +148,11 @@ class App extends Component {
 					/>
 					<Route
 						path="/list"
+						exact
+						render={(props) => <CardList user={this.state.user} {...props} />}
+					/>
+					<Route
+						path="/"
 						exact
 						render={(props) => <CardList user={this.state.user} {...props} />}
 					/>
