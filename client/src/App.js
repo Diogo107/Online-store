@@ -17,11 +17,6 @@ import Checkout from './Views/Checkout';
 import Footer from './Components/Footer';
 import FAQ from './Views/FAQ';
 
-/* Este ainda não usei */
-import PdfViews from './Views/PdfView';
-import PostsView from './Views/posts/viewPosts';
-import { Toast, Col, Button, Row } from 'react-bootstrap';
-
 class App extends Component {
 	constructor(props) {
 		super(props);
